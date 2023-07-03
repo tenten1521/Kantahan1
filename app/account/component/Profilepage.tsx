@@ -50,7 +50,18 @@ const ProfilePage = () => {
           }}
         >
           {profileImage ? (
-            <img src={profileImage as string} alt="Profile" className="w-full h-full object-cover" />
+            <div className="relative w-full h-full">
+              <img src={profileImage as string} alt="Profile" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button
+                  type="button"
+                  className="text-white bg-black bg-opacity-40 rounded-full p-2 hover:bg-opacity-60"
+                  onClick={handleImageReset}
+                >
+                  Choose photo
+                </button>
+              </div>
+            </div>
           ) : (
             <FaUserCircle className={`text-5xl text-white ${isHovered ? 'text-gray-600' : ''}`} />
           )}
