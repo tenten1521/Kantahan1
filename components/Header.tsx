@@ -10,7 +10,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@/hooks/useUser";
 import {FaUserAlt} from "react-icons/fa"
 import { toast } from "react-hot-toast";
-
+import {FcAbout} from "react-icons/fc";
 
 
 
@@ -39,10 +39,6 @@ const handleLogout = async () => {
         toast.success('Logged out')
       }
 }
-
-
-
-    
     return(
      <div className={twMerge(`h-fit bg-gradient-to-b from-pink-800 p-6 `, className)}>
         <div className="
