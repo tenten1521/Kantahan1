@@ -1,17 +1,17 @@
 "use client";
-import useSound from "use-sound";
 import { useState, useEffect } from "react";
 import { BsPauseFill, BsPlayFill, BsArrowRepeat } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import { FaRandom } from "react-icons/fa";
 
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
+import useSound from "use-sound";
 
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
 import Slider from "./Slider";
-
 
 interface PlayerContentProps {
   song: Song;
@@ -23,6 +23,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatEnabled, setIsRepeatEnabled] = useState(false);
+  const [isShuffleEnabled, setIsShuffleEnabled] = useState(false);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
@@ -88,6 +89,21 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   };
 
+  const skipForward = () => {
+    if (sound) {
+      const currentTime = sound.seek();
+      sound.seek(currentTime + 10);
+    }
+  };
+
+  const skipBackward = () => {
+    if (sound) {
+      const currentTime = sound.seek();
+      sound.seek(currentTime - 10);
+    }
+  };
+  
+
   const toggleRepeat = () => {
     setIsRepeatEnabled(!isRepeatEnabled);
   };
@@ -109,6 +125,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     };
   }, [sound, isRepeatEnabled]);
 
+  const toggleShuffle = () => {
+    setIsShuffleEnabled(!isShuffleEnabled);
+  };
+
   const toggleMute = () => {
     if (volume === 0) {
       setVolume(1);
@@ -117,7 +137,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
   };
 
-  return ( 
+  return (
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
       <div className="flex w-full justify-start">
         <div className="flex items-center gap-x-4">
@@ -126,27 +146,27 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         </div>
       </div>
 
-      <div 
+      <div
         className="
-          flex 
-          md:hidden 
-          col-auto 
-          w-full 
-          justify-end 
+          flex
+          md:hidden
+          col-auto
+          w-full
+          justify-end
           items-center
         "
       >
-        <div 
-          onClick={handlePlay} 
+        <div
+          onClick={handlePlay}
           className="
             h-10
             w-10
-            flex 
-            items-center 
-            justify-center 
-            rounded-full 
-            bg-white 
-            p-1 
+            flex
+            items-center
+            justify-center
+            rounded-full
+            bg-white
+            p-1
             cursor-pointer
           "
         >
@@ -154,78 +174,104 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         </div>
       </div>
 
-      <div 
+      <div
         className="
           hidden
           h-full
-          md:flex 
-          justify-center 
-          items-center 
-          w-full 
-          max-w-[722px] 
+          md:flex
+          justify-center
+          items-center
+          w-full
+          max-w-[722px]
           gap-x-6
         "
       >
+          
+        <FaRandom
+            onClick={toggleShuffle}
+            className={`cursor-pointer ${
+              isShuffleEnabled ? "text-primary-500" : "text-neutral-400"
+            }`}
+            size={18}
+        />
+
         <AiFillStepBackward
           onClick={onPlayPrevious}
-          size={30} 
+          size={30}
           className="
-            text-neutral-400 
-            cursor-pointer 
-            hover:text-white 
+            text-neutral-400
+            cursor-pointer
+            hover:text-white
             transition
           "
         />
-        <div 
-          onClick={handlePlay} 
+
+    <button
+      onClick={skipBackward}
+      className="text-neutral-400 cursor-pointer hover:text-white transition"
+    >
+      <span style={{ transform: 'rotate(0deg)', display: 'inline-block' }}>&#8630;</span>
+    </button>
+
+        <div
+          onClick={handlePlay}
           className="
-            flex 
-            items-center 
+            flex
+            items-center
             justify-center
             h-10
-            w-10 
-            rounded-full 
-            bg-white 
-            p-1 
+            w-10
+            rounded-full
+            bg-white
+            p-1
             cursor-pointer
           "
         >
           <Icon size={30} className="text-black" />
         </div>
+
+        <button
+          onClick={skipForward}
+          className="text-neutral-400 cursor-pointer hover:text-white transition"
+        >
+          <span style={{ transform: 'rotate(360deg)', display: 'inline-block' }}>&#8631;</span>
+        </button>
+
+
         <AiFillStepForward
           onClick={onPlayNext}
-          size={30} 
+          size={30}
           className="
-            text-neutral-400 
-            cursor-pointer 
-            hover:text-white 
+            text-neutral-400
+            cursor-pointer
+            hover:text-white
             transition
-          " 
+          "
         />
         <BsArrowRepeat
           onClick={toggleRepeat}
-          className={`cursor-pointer ${isRepeatEnabled ? 'text-primary-500' : 'text-neutral-400'}`}
+          className={`cursor-pointer ${
+            isRepeatEnabled ? "text-primary-500" : "text-neutral-400"
+          }`}
           size={24}
         />
       </div>
 
       <div className="hidden md:flex w-full justify-end pr-2">
         <div className="flex items-center gap-x-2 w-[120px]">
-          <VolumeIcon 
-            onClick={toggleMute} 
-            className="cursor-pointer" 
-            size={34} 
+          <VolumeIcon
+            onClick={toggleMute}
+            className="cursor-pointer"
+            size={34}
           />
-          <Slider 
-            value={volume} 
-            onChange={(value) => setVolume(value)}
-          />
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
-
+      
       
     </div>
   );
-}
- 
+};
+
 export default PlayerContent;
+
