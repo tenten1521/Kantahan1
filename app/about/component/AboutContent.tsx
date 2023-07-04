@@ -1,17 +1,9 @@
 "use client";
-
-
-
-
-
 const AboutContent = () => {
 
     <div> Musika</div>
   return ( 
     <div 
-      className="
-      text-aling-center
-      "
     >
 Once upon a time, in the early 2000s, music enthusiasts in the Philippines faced a common challenge: accessing and enjoying their favorite music seamlessly, wherever they went. They longed for a convenient solution that would liberate them from the hassle of carrying physical CDs or downloading individual songs.
 
