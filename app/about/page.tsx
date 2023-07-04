@@ -1,4 +1,3 @@
-import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 
@@ -7,9 +6,6 @@ import AboutContent from "./component/AboutContentProps";
 export const revalidate = 0;
 
 export default async function About() {
-  const songs = await getSongs();
-
-  
 
   return (
     <div
@@ -57,7 +53,7 @@ export default async function About() {
             History of Musika
           </h1>
         </div>
-        <AboutContent songs={songs} />
+        <AboutContent/>
       </div>
     </div>
   )
