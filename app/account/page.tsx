@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
-import ProfilePage from "./component/Profilepage";
-import AccountContent from "./component/AcountContent";
+
+import AccountContent from "./components/AcountContent";
 
 const Account = () => {
   return (
@@ -21,7 +21,6 @@ const Account = () => {
           </h1>
         </div>
       </Header>
-      <ProfilePage />
       <AccountContent />
     </div>
   )

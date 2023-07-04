@@ -12,6 +12,7 @@ import SidebarItem from "./SidebarItem";
 import Box from "./Box";
 import Library from "./Library";
 import { useMemo } from "react";
+import { FcAbout } from "react-icons/fc";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -28,6 +29,12 @@ const Sidebar = ({ children, songs }: SidebarProps) => {
       label: 'Home',
       active: pathname !== '/search',
       href: '/'
+    },
+    {
+      icon: FcAbout,
+      label: 'About',
+      active: pathname === '/about',
+      href: '/about'
     },
     {
       icon: BiSearch,

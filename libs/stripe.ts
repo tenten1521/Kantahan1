@@ -5,7 +5,7 @@ export const stripe = new Stripe(
   {
     apiVersion: '2022-11-15',
     appInfo: {
-      name: 'Musika',
+      name: 'Musika-10',
       version: '0.1.0'
     }
   }

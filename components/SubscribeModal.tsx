@@ -1,7 +1,7 @@
 "use client";
 
-    import React, { useState } from 'react';
-    import { toast } from 'react-hot-toast';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import useSubscribeModal from '@/hooks/useSubscribeModal';
 import { useUser } from '@/hooks/useUser';
@@ -91,7 +91,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({
               key={price.id} 
               onClick={() => handleCheckout(price)}
               disabled={isLoading || price.id === priceIdLoading}
-              className="mb-4 rounded-full"
+              className="mb-4"
             >
               {`Subscribe for ${formatPrice(price)} a ${price.interval}`}
             </Button>
