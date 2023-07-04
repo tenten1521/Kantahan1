@@ -10,7 +10,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@/hooks/useUser";
 import {FaUserAlt} from "react-icons/fa"
 import { toast } from "react-hot-toast";
-import {FcAbout} from "react-icons/fc"
+import {SiAboutdotme} from "react-icons/si"
 
 
 
@@ -101,7 +101,7 @@ const handleLogout = async () => {
                 justify-center
                 hover:opacity-75
                 transition">
-                    <FcAbout className="text-black" size={20}/>
+                    <SiAboutdotme className="text-black" size={20}/>
                 </button>
                 <button
                 className="rounded-full

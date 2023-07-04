@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 
-import AccountContent from "./components/AcountContent";
+import AccountContent from "./component/AcountContent";
+import ProfilePage from "./component/Profilepage";
 
 const Account = () => {
   return (
@@ -14,14 +15,18 @@ const Account = () => {
         overflow-y-auto
       "
     >
+        
       <Header className="from-bg-neutral-900">
         <div className="mb-2 flex flex-col gap-y-6">
           <h1 className="text-white text-3xl font-semibold">
             Account Settings
           </h1>
         </div>
+       
       </Header>
+      <ProfilePage/>
       <AccountContent />
+    
     </div>
   )
 }
